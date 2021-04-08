@@ -1,5 +1,20 @@
-/* If you're feeling fancy you can add interactivity 
-    to your site with Javascript */
+function preload() {
+  createVRCanvas();
+}
 
-// prints "hi" in the browser's dev tools console
-console.log("hi");
+function setup() {
+  setVRBackgroundColor(200, 0, 150);
+  fill(0, 255, 0);
+}
+
+function calculate() {
+  // Things you want to happen once per frame
+}
+
+function draw() {
+  translate(0, 0, 10);
+  rotateX(10);
+  rotateY(20);
+
+  box(5);
+}
