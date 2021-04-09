@@ -1,6 +1,6 @@
 // import { BoxLineGeometry } from './jsm/geometries/BoxLineGeometry.js';
-// import { VRButton } from './jsm/webxr/VRButton.js';
-// import { XRControllerModelFactory } from './jsm/webxr/XRControllerModelFactory.js';
+import { VRButton } from './jsm/webxr/VRButton.js';
+import XRControllerModelFactory from './jsm/webxr/XRControllerModelFactory.js';
 
 console.log(BoxLineGeometry)
 
