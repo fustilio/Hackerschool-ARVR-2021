@@ -54,7 +54,7 @@ function init() {
   );
   scene.add( room );
 
-  // Lets add a AxesHelper object to see the coordinate axes
+  // Step 2.5: Add a AxesHelper object to see the coordinate axes
   // The X axis is red. The Y axis is green. The Z axis is blue.
   const axesHelper = new THREE.AxesHelper( 1 );
   axesHelper.position.x = 0;
@@ -62,23 +62,22 @@ function init() {
   axesHelper.position.z = -2;
   scene.add( axesHelper );
   
-  // prepare some geometry with which we will instantiate a cube
+  // Step 3: prepare some geometry with which we will instantiate a cube
   const geometry = new THREE.BoxGeometry( 0.15, 0.15, 0.15 );
-  const myFirstCube = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( 0xff0000 ) );
+  const myFirstCube = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { color: 0xff0000 } ) );
+  myFirstCube.userData.velocity = new THREE.Vector3();
   // if you look at the scene now, you'll find that the cube is directly below you
   
   room.add( myFirstCube );
   
-  // lets move the cube to a better position, right above the axes helper
+  // Step 4: lets move the cube to a better position, right above the axes helper
   myFirstCube.position.x = 0;
   myFirstCube.position.y = 2;
   myFirstCube.position.z = -2;
 
   
-  // the cube is supposed to be red, what happened?
-
-
-  
+  // the cube is supposed to be red, what happened? 
+  // Step 5: Add some lights
   scene.add( new THREE.HemisphereLight( 0x606060, 0x404040 ) );
 
   const light = new THREE.DirectionalLight( 0xffffff );
@@ -203,7 +202,7 @@ function animate() {
 
 function render() {
 
-//   const delta = clock.getDelta() * 60;
+  const delta = clock.getDelta() * 60;
 
 //   if ( controller.userData.isSelecting === true ) {
 
@@ -250,40 +249,47 @@ function render() {
 
 //   // Keep cubes inside room
 
-  for ( let i = 0; i < room.children.length; i ++ ) {
+    // Step 6: Make the cube spin!
+    let myFirstCube = room.children[0];
+    myFirstCube.rotation.x += 0.01 * delta;
+    myFirstCube.rotation.y += 0.01 * delta;
+    myFirstCube.rotation.z += 0.01 * delta;
+  
+//   for ( let i = 0; i < room.children.length; i ++ ) {
 
-    const cube = room.children[ i ];
+//     const cube = room.children[ i ];
 
-    cube.userData.velocity.multiplyScalar( 1 - ( 0.001 * delta ) );
+//     cube.userData.velocity.multiplyScalar( 1 - ( 0.001 * delta ) );
 
-    cube.position.add( cube.userData.velocity );
+//     cube.position.add( cube.userData.velocity );
 
-    if ( cube.position.x < - 3 || cube.position.x > 3 ) {
+//     if ( cube.position.x < - 3 || cube.position.x > 3 ) {
 
-      cube.position.x = THREE.MathUtils.clamp( cube.position.x, - 3, 3 );
-      cube.userData.velocity.x = - cube.userData.velocity.x;
+//       cube.position.x = THREE.MathUtils.clamp( cube.position.x, - 3, 3 );
+//       cube.userData.velocity.x = - cube.userData.velocity.x;
 
-    }
+//     }
 
-    if ( cube.position.y < 0 || cube.position.y > 6 ) {
+//     if ( cube.position.y < 0 || cube.position.y > 6 ) {
 
-      cube.position.y = THREE.MathUtils.clamp( cube.position.y, 0, 6 );
-      cube.userData.velocity.y = - cube.userData.velocity.y;
+//       cube.position.y = THREE.MathUtils.clamp( cube.position.y, 0, 6 );
+//       cube.userData.velocity.y = - cube.userData.velocity.y;
 
-    }
+//     }
 
-    if ( cube.position.z < - 3 || cube.position.z > 3 ) {
+//     if ( cube.position.z < - 3 || cube.position.z > 3 ) {
 
-      cube.position.z = THREE.MathUtils.clamp( cube.position.z, - 3, 3 );
-      cube.userData.velocity.z = - cube.userData.velocity.z;
+//       cube.position.z = THREE.MathUtils.clamp( cube.position.z, - 3, 3 );
+//       cube.userData.velocity.z = - cube.userData.velocity.z;
 
-    }
+//     }
 
-    cube.rotation.x += cube.userData.velocity.x * 2 * delta;
-    cube.rotation.y += cube.userData.velocity.y * 2 * delta;
-    cube.rotation.z += cube.userData.velocity.z * 2 * delta;
+//     cube.rotation.x += cube.userData.velocity.x * 2 * delta;
+//     cube.rotation.y += cube.userData.velocity.y * 2 * delta;
+//     cube.rotation.z += cube.userData.velocity.z * 2 * delta;
+  
 
-  }
+//   }
 
   // Step 1: render the scene through the camera
   renderer.render( scene, camera );
