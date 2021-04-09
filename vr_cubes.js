@@ -1,8 +1,8 @@
-import * as THREE from '../build/three.module.js';
+// import { BoxLineGeometry } from './jsm/geometries/BoxLineGeometry.js';
+// import { VRButton } from './jsm/webxr/VRButton.js';
+// import { XRControllerModelFactory } from './jsm/webxr/XRControllerModelFactory.js';
 
-import { BoxLineGeometry } from './jsm/geometries/BoxLineGeometry.js';
-import { VRButton } from './jsm/webxr/VRButton.js';
-import { XRControllerModelFactory } from './jsm/webxr/XRControllerModelFactory.js';
+console.log(BoxLineGeometry)
 
 // const clock = new THREE.Clock();
 
