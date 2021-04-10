@@ -9,8 +9,6 @@ let container;
 let camera, scene, raycaster, renderer;
 
 let room;
-let INTERSECTED;
-const tempMatrix = new THREE.Matrix4();
 
 init();
 animate();
@@ -72,29 +70,9 @@ function init() {
 
   // Step 7: Add more cubes
   for ( let i = 0; i < 200; i ++ ) {
-    const object = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { color: Math.random() * 0xffffff } ) );
-
-    object.position.x = Math.random() * 4 - 2;
-    object.position.y = Math.random() * 4;
-    object.position.z = Math.random() * 4 - 2;
-
-    object.rotation.x = Math.random() * 2 * Math.PI;
-    object.rotation.y = Math.random() * 2 * Math.PI;
-    object.rotation.z = Math.random() * 2 * Math.PI;
-
-    object.scale.x = Math.random() + 0.5;
-    object.scale.y = Math.random() + 0.5;
-    object.scale.z = Math.random() + 0.5;
-    
     // Step 8: Make cubes move
-    object.userData.velocity = new THREE.Vector3();
-    object.userData.velocity.x = Math.random() * 0.01 - 0.005;
-    object.userData.velocity.y = Math.random() * 0.01 - 0.005;
-    object.userData.velocity.z = Math.random() * 0.01 - 0.005;
-    
-    room.add( object );
   }
-
+  
 
   function onSelectStart() {
 
@@ -137,41 +115,7 @@ function render() {
   myFirstCube.rotation.x += 0.01 * delta;
   myFirstCube.rotation.y += 0.01 * delta;
   myFirstCube.rotation.z += 0.01 * delta;
-  // Step 9: Keep cubes within the room 
-  for ( let i = 0; i < room.children.length; i ++ ) {
-
-    const cube = room.children[ i ];
-
-    cube.userData.velocity.multiplyScalar( 1 - ( 0.001 * delta ) );
-
-    cube.position.add( cube.userData.velocity );
-
-    if ( cube.position.x < - 3 || cube.position.x > 3 ) {
-
-      cube.position.x = THREE.MathUtils.clamp( cube.position.x, - 3, 3 );
-      cube.userData.velocity.x = - cube.userData.velocity.x;
-
-    }
-
-    if ( cube.position.y < 0 || cube.position.y > 6 ) {
-
-      cube.position.y = THREE.MathUtils.clamp( cube.position.y, 0, 6 );
-      cube.userData.velocity.y = - cube.userData.velocity.y;
-
-    }
-
-    if ( cube.position.z < - 3 || cube.position.z > 3 ) {
-
-      cube.position.z = THREE.MathUtils.clamp( cube.position.z, - 3, 3 );
-      cube.userData.velocity.z = - cube.userData.velocity.z;
-
-    }
-
-    cube.rotation.x += cube.userData.velocity.x * 2 * delta;
-    cube.rotation.y += cube.userData.velocity.y * 2 * delta;
-    cube.rotation.z += cube.userData.velocity.z * 2 * delta;
-
-  }
+  // Step 9: Keep cubes within the room  
   
   // Step 1: render the scene through the camera
   renderer.render( scene, camera );
