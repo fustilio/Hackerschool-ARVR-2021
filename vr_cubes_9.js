@@ -9,8 +9,6 @@ let container;
 let camera, scene, raycaster, renderer;
 
 let room;
-let INTERSECTED;
-const tempMatrix = new THREE.Matrix4();
 
 init();
 animate();
